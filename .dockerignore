@@ -1,0 +1,7 @@
+/.devcontainer
+/.dockerignore
+/.git
+/target
+
+Dockerfile
+dockekr-compose.yml
