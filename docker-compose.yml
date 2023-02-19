@@ -1,0 +1,9 @@
+services:
+  rust:
+    image: rust
+    volumes:
+      - .:/workspace
+      - cargo-data:/usr/local/cargo
+    working_dir: /workspace
+volumes:
+  cargo-data:
