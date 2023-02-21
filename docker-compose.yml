@@ -1,9 +1,21 @@
 services:
   rust:
     image: rust
+    environment:
+      DATABASE_URL: postgres://postgres@postgres:5432/postgres
     volumes:
       - .:/workspace
       - cargo-data:/usr/local/cargo
     working_dir: /workspace
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+
 volumes:
   cargo-data:
+  pg-data:
