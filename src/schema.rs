@@ -6,6 +6,6 @@ diesel::table! {
         title -> Varchar,
         body -> Text,
         published -> Bool,
-        memo -> Text,
+        memo -> Nullable<Text>,
     }
 }

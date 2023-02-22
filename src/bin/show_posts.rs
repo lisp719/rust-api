@@ -18,6 +18,6 @@ fn main() {
         println!("-----------\n");
         println!("{}", post.body);
         println!("-----------\n");
-        println!("{}", post.memo);
+        println!("{}", post.memo.unwrap_or("".to_string()));
     }
 }
