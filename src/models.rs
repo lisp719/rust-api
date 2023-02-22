@@ -7,6 +7,7 @@ pub struct Post {
     pub title: String,
     pub body: String,
     pub published: bool,
+    pub memo: String,
 }
 
 #[derive(Insertable)]

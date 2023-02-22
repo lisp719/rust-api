@@ -17,5 +17,7 @@ fn main() {
         println!("{}", post.title);
         println!("-----------\n");
         println!("{}", post.body);
+        println!("-----------\n");
+        println!("{}", post.memo);
     }
 }
