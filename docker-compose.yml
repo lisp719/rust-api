@@ -1,8 +1,11 @@
 services:
   rust:
     image: rust
+    command: cargo run --bin rust-api
     environment:
       DATABASE_URL: postgres://postgres@postgres:5432/postgres
+    ports:
+      - 8080:8080
     volumes:
       - .:/workspace
       - cargo-data:/usr/local/cargo
