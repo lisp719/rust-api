@@ -1,34 +1,34 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { gql, useQuery } from "@apollo/client";
 
-function App() {
-  const [count, setCount] = useState(0)
+const GET_UPLOADS = gql`
+  query GetUploads {
+    uploads {
+      id
+      url
+    }
+  }
+`;
 
-  return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+function DisplayUploads() {
+  const { loading, error, data } = useQuery(GET_UPLOADS);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error : {error.message}</p>;
+
+  return data.uploads.map(({ id, url }: { id: string; url: string }) => (
+    <div key={id}>
+      <p>{url}</p>
     </div>
-  )
+  ));
 }
 
-export default App
+function App() {
+  return (
+    <div>
+      <h3>upload</h3>
+      <DisplayUploads />
+    </div>
+  );
+}
+
+export default App;
