@@ -1,8 +1,18 @@
-import { gql, useQuery } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
+import React from "react";
 
 const GET_UPLOADS = gql`
   query GetUploads {
     uploads {
+      id
+      url
+    }
+  }
+`;
+
+const UPLOAD_FILES = gql`
+  mutation ($files: [Upload!]!) {
+    multipleUpload(files: $files) {
       id
       url
     }
@@ -22,10 +32,28 @@ function DisplayUploads() {
   ));
 }
 
+function UploadFiles() {
+  const [mutate] = useMutation(UPLOAD_FILES, {
+    refetchQueries: [{ query: GET_UPLOADS }],
+  });
+
+  const onChange = ({
+    target: { validity, files },
+  }: React.ChangeEvent<HTMLInputElement>) => {
+    if (validity.valid) {
+      mutate({ variables: { files } });
+    }
+  };
+
+  return <input type="file" multiple required onChange={onChange} />;
+}
+
 function App() {
   return (
     <div>
       <h3>upload</h3>
+      <UploadFiles />
+      <hr />
       <DisplayUploads />
     </div>
   );
