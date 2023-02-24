@@ -1,3 +1,4 @@
+use actix_cors::Cors;
 use actix_web::{get, guard, post, web, web::Data, App, HttpResponse, HttpServer, Responder};
 use async_graphql::{
     http::{GraphiQLSource, MultipartOptions},
@@ -56,6 +57,7 @@ async fn main() -> std::io::Result<()> {
                     )
                     .service(web::resource("").guard(guard::Get()).to(gql_playgound)),
             )
+            .wrap(Cors::permissive())
     })
     .bind(("0.0.0.0", 8080))?
     .run()
