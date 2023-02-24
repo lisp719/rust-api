@@ -19,7 +19,7 @@
       "extensions": ["rust-lang.rust-analyzer"]
     }
   },
-  "postAttachCommand": "sh .devcontainer/post-attach.sh"
+  "postStartCommand": "sh .devcontainer/post-start.sh"
 
   // Features to add to the dev container. More info: https://containers.dev/features.
   // "features": {},
