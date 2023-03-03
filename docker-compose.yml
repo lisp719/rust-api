@@ -1,8 +1,22 @@
 services:
+  node:
+    image: node:lts
+    command: npm run dev -- --host
+    ports:
+      - 5173:5173
+    user: node
+    volumes:
+      - .:/workspace
+    working_dir: /workspace/client
   rust:
     image: rust
+    command: cargo run --bin rust-api
     environment:
+      BUCKET_NAME: sandbox-rust-api
       DATABASE_URL: postgres://postgres@postgres:5432/postgres
+      GOOGLE_APPLICATION_CREDENTIALS: /workspace/credentials.json
+    ports:
+      - 8080:8080
     volumes:
       - .:/workspace
       - cargo-data:/usr/local/cargo
