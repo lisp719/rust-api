@@ -16,7 +16,11 @@
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
   "customizations": {
     "vscode": {
-      "extensions": ["apollographql.vscode-apollo", "rust-lang.rust-analyzer"]
+      "extensions": [
+        "apollographql.vscode-apollo",
+        "rangav.vscode-thunder-client",
+        "rust-lang.rust-analyzer"
+      ]
     }
   },
   "postStartCommand": "sh .devcontainer/post-start.sh"
