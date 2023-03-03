@@ -1891,6 +1891,7 @@ dependencies = [
  "google-cloud-default",
  "google-cloud-storage",
  "reqwest",
+ "serde_json",
  "slab",
  "tokio",
 ]
