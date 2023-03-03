@@ -1883,6 +1883,7 @@ dependencies = [
  "futures",
  "google-cloud-default",
  "google-cloud-storage",
+ "reqwest",
  "slab",
  "tokio",
 ]
