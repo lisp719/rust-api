@@ -1,3 +1,4 @@
+use dotenvy::dotenv;
 use google_cloud_default::WithAuthExt;
 use google_cloud_storage::{
     client::{Client, ClientConfig},
@@ -7,6 +8,8 @@ use std::env;
 
 #[tokio::main]
 async fn main() {
+    dotenv().expect(".env file not found");
+
     let config = ClientConfig::default().with_auth().await.unwrap();
     let client = Client::new(config);
     let bucket = env::var("BUCKET_NAME").unwrap();
