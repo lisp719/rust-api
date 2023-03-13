@@ -5,9 +5,9 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 
 const client = new ApolloClient({
-  uri: "http://localhost:8080/graphql",
+  uri: "http://localhost:8080",
   cache: new InMemoryCache(),
-  link: createUploadLink({ uri: "http://localhost:8080/graphql" }),
+  link: createUploadLink({ uri: "http://localhost:8080" }),
 });
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
