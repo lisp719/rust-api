@@ -6,8 +6,7 @@ use async_graphql::{
 };
 use async_graphql_actix_web::{GraphQLRequest, GraphQLResponse};
 use graphql::{FilesSchema, MutationRoot, QueryRoot, Storage};
-
-pub mod graphql;
+use rust_api::graphql;
 
 async fn index(schema: web::Data<FilesSchema>, req: GraphQLRequest) -> GraphQLResponse {
     schema.execute(req.into_inner()).await.into()
