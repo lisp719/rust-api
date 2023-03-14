@@ -8,7 +8,7 @@ pub struct FileInfo {
     pub url: String,
 }
 
-#[derive(Queryable)]
+#[derive(Queryable, SimpleObject)]
 pub struct Post {
     pub id: i32,
     pub title: String,
