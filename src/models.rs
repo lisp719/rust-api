@@ -1,5 +1,12 @@
 use crate::schema::posts;
+use async_graphql::{SimpleObject, ID};
 use diesel::prelude::*;
+
+#[derive(Clone, SimpleObject)]
+pub struct FileInfo {
+    pub id: ID,
+    pub url: String,
+}
 
 #[derive(Queryable)]
 pub struct Post {

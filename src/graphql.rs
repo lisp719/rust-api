@@ -1,14 +1,9 @@
-use async_graphql::{Context, EmptySubscription, Object, Schema, SimpleObject, Upload, ID};
+use crate::models::FileInfo;
+use async_graphql::{Context, EmptySubscription, Object, Schema, Upload};
 use futures::lock::Mutex;
 use slab::Slab;
 
 pub type FilesSchema = Schema<QueryRoot, MutationRoot, EmptySubscription>;
-
-#[derive(Clone, SimpleObject)]
-pub struct FileInfo {
-    id: ID,
-    url: String,
-}
 
 pub type Storage = Mutex<Slab<FileInfo>>;
 
