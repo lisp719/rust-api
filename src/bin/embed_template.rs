@@ -1,28 +1,25 @@
-use handlebars::Handlebars;
-use rust_embed::RustEmbed;
-use std::{collections::BTreeMap, io::stdin};
+use include_dir::{include_dir, Dir};
+use serde_json::json;
+use tera::{Context, Tera};
 
-#[derive(RustEmbed)]
-#[folder = "templates/"]
-struct Asset;
+const TEMPLATES: Dir = include_dir!("templates");
 
 fn main() {
-    let mut handlebars = Handlebars::new();
-    handlebars.register_embed_templates::<Asset>().unwrap();
+    let mut tera = Tera::default();
+    for file in TEMPLATES.files() {
+        tera.add_raw_template(file.path().to_str().unwrap(), file.contents_utf8().unwrap())
+            .expect("Could not add template");
+    }
 
-    let mut data = BTreeMap::new();
-    let mut name = String::new();
+    let data = json!({"name": "John Doe"});
+    let context = Context::from_serialize(data).expect("Could not serialize");
 
-    println!("Please enter your name");
-    stdin().read_line(&mut name).unwrap();
-    data.insert("name", name.trim_end().to_string());
-
-    match handlebars.render("hi.txt", &data) {
+    match tera.render("hi.txt", &context) {
         Ok(s) => println!("{}", s),
         Err(e) => println!("Error: {}", e),
     }
 
-    match handlebars.render("bye.txt", &data) {
+    match tera.render("bye.txt", &context) {
         Ok(s) => println!("{}", s),
         Err(e) => println!("Error: {}", e),
     }
