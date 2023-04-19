@@ -2,6 +2,7 @@ use self::models::{NewPost, Post};
 use diesel::{Connection, PgConnection, RunQueryDsl};
 use std::env;
 
+pub mod graphql;
 pub mod models;
 pub mod schema;
 

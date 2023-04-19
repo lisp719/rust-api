@@ -1,14 +1,9 @@
-use async_graphql::{Context, EmptySubscription, Object, Schema, SimpleObject, Upload, ID};
+use crate::models::{FileInfo, Post};
+use async_graphql::{Context, EmptySubscription, Object, Schema, Upload};
 use futures::lock::Mutex;
 use slab::Slab;
 
 pub type FilesSchema = Schema<QueryRoot, MutationRoot, EmptySubscription>;
-
-#[derive(Clone, SimpleObject)]
-pub struct FileInfo {
-    id: ID,
-    url: String,
-}
 
 pub type Storage = Mutex<Slab<FileInfo>>;
 
@@ -16,6 +11,19 @@ pub struct QueryRoot;
 
 #[Object]
 impl QueryRoot {
+    async fn posts(&self) -> Vec<Post> {
+        let post = Post {
+            id: 1,
+            title: "title".to_string(),
+            body: "body".to_string(),
+            published: true,
+            memo: None,
+        };
+        let results = vec![post];
+
+        results
+    }
+
     async fn uploads(&self, ctx: &Context<'_>) -> Vec<FileInfo> {
         let storage = ctx.data_unchecked::<Storage>().lock().await;
         storage.iter().map(|(_, file)| file).cloned().collect()
